@@ -9,8 +9,8 @@ func (jr *JUnitReporter) StopBuild() (string, error) {
 
 	createZipFolderForUploader(jr.buildDetails.buildIdentifier)
 
-	// // Send this xml file to o11y api
-	_, uploaderError := O11yJunitUploader(jr.buildDetails)
+	// Send this xml file to o11y api
+	respMessage, uploaderError := O11yJunitUploader(jr.buildDetails)
 	if uploaderError != nil {
 		return "", uploaderError
 	}
@@ -18,5 +18,5 @@ func (jr *JUnitReporter) StopBuild() (string, error) {
 	// Delete the created file & reset the inmemory to empty(default) values
 	jr.resetData()
 
-	return "", nil
+	return respMessage, nil
 }

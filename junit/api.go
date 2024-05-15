@@ -2,6 +2,8 @@ package junit
 
 import (
 	"bytes"
+	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"mime/multipart"
@@ -16,7 +18,7 @@ const (
 )
 
 func O11yJunitUploader(buildDetails BuildDetailsParams) (string, error) {
-	// Specify the name of the zip file to be created
+
 	zipFilePath, err := getCurrentBuildZipFilePath(buildDetails.buildIdentifier)
 	if err != nil {
 		return "", err
@@ -93,7 +95,7 @@ func O11yJunitUploader(buildDetails BuildDetailsParams) (string, error) {
 	// Check the status code
 	if resp.StatusCode != http.StatusOK {
 		fmt.Println("Error: Unexpected status code", resp.StatusCode)
-		// return nil
+		return "nil", errors.New("error: unexpected status code " + (string)(resp.StatusCode))
 	}
 
 	// Read the response body
@@ -103,11 +105,17 @@ func O11yJunitUploader(buildDetails BuildDetailsParams) (string, error) {
 		// return nil
 	}
 
-	// Print the response body
-	fmt.Println("Response body:", string(body))
+	// Unmarshal the JSON data into the struct
+	var responseData UploaderResponseData
+	err = json.Unmarshal(body, &responseData)
+	if err != nil {
+		fmt.Println("Error unmarshalling response body:", err)
+		return "", err
+	}
 
-	// Handle response if needed
-	fmt.Println("*** uploader response", resp, err)
+	// Access the desired key
+	message := responseData.Message
 
-	return "", nil
+	return message, nil
+
 }

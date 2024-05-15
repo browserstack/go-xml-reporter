@@ -1,5 +1,3 @@
-// Contents of reporter.go
-
 package junit
 
 import (
@@ -30,10 +28,9 @@ func NewJUnitReporter() *JUnitReporter {
 
 func (jr *JUnitReporter) resetData() {
 
-	// removing build folder created
 	removeBuildDirErr := removeBuildAssets(jr.buildDetails.buildIdentifier)
 	if removeBuildDirErr != nil {
-		fmt.Println("build directory deletion failed")
+		fmt.Println("xml build directory deletion failed")
 	}
 
 	// Resetting buildDetails data

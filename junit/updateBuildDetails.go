@@ -2,7 +2,6 @@ package junit
 
 import "errors"
 
-// UpdateBuild updates the specified build with optional parameters.
 func (jr *JUnitReporter) UpdateBuildDetails(buildIdentifier string, buildTags []string, ciDetails string, frameworkDetails string, vcsDetails map[string]string, additionalProperties map[string]string) (string, error) {
 
 	// validation for required params

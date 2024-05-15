@@ -59,7 +59,6 @@ func createBuildDirectory(buildIdentifier string) error {
 		if err != nil {
 			fmt.Println("Error creating folder:", err)
 		}
-		fmt.Println("Folder created successfully:", buildFolder)
 	}
 
 	// Create the full path
@@ -162,7 +161,6 @@ func copyAttachmentsToBuildDir(attachmentPath string, buildIdentifier string) {
 		return
 	}
 
-	fmt.Println("File copied successfully from", sourceFilePath, "to", destinationFilePath)
 }
 
 func testPropsCreator(testProps map[string]interface{}, buildIdentifier string) []Property {
@@ -335,5 +333,4 @@ func createZipFolderForUploader(buildIdentifier string) {
 		return
 	}
 
-	fmt.Println("Folder zipped successfully into:", zipFile)
 }

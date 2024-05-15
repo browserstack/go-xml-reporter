@@ -48,7 +48,7 @@ Follow the steps below to set up the repository on your local machine:
     
     `go run main.go`
 
-    This will upload a JUnit XML report to your BrowserStack account.
+    This will upload a JUnit XML report to your BrowserStack's Test Observability product.
 
 5.  Feel free to customize the values in the example.go file located inside the example folder according to your requirements. After making changes, you can rerun the command mentioned above to test different scenarios.
 

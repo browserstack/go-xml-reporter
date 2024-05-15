@@ -97,3 +97,9 @@ type BuildDetailsParams struct {
 	vcsDetails           map[string]string
 	additionalProperties map[string]string
 }
+
+type UploaderResponseData struct {
+	BuildId string `json:"build_id"`
+	Status  string `json:"status"`
+	Message string `json:"message"`
+}

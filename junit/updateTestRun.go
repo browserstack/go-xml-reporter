@@ -54,7 +54,6 @@ func (jr *JUnitReporter) UpdateTestRunDetails(testIdentifier string, testProps m
 			matchedTestCase.ConsoleLog = &newSystemConsoleLog
 		}
 	}
-	// ***
 
 	// Test prop section
 	propertiesObject := matchedTestCase.Properties
@@ -63,7 +62,6 @@ func (jr *JUnitReporter) UpdateTestRunDetails(testIdentifier string, testProps m
 	if len(propertiesObject.Properties) > 0 {
 		matchedTestCase.Properties = propertiesObject
 	}
-	// ***
 
 	matchedTestCasesList[matchedTestCaseIdx] = matchedTestCase
 	jr.testSuites[matchedTestSuiteKey].TestCases[matchedTestCaseIdx] = matchedTestCase
