@@ -2,13 +2,27 @@ package example
 
 import (
 	"go-xml-reporter/junit"
+	"log"
+	"os"
+
+	"github.com/joho/godotenv"
 )
 
 func Example() {
 
+	// Load the environment variables from the .env file
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatalf("Error loading .env file: %v", err)
+	}
+
+	// Access the environment variables
+	BSTACK_USERNAME := os.Getenv("BSTACK_USERNAME")
+	BSTACK_PASSWORD := os.Getenv("BSTACK_PASSWORD")
+
 	reporter1 := junit.NewJUnitReporter()
 
-	buildIdentifier, err := reporter1.CreateBuild("tamox_GiO3Eq", "jWzMypJPRugGjs2zWS4i", "Ryomen Sukuna", "Siva - Junit report uploads", "", []string{"junit_upload", "regression"}, "http://localhost:8080/", "mocha, 10.0.0", map[string]string{}, map[string]string{})
+	buildIdentifier, err := reporter1.CreateBuild(BSTACK_USERNAME, BSTACK_PASSWORD, "Ryomen Sukuna", "Siva - Junit report uploads", "", []string{"junit_upload", "regression"}, "http://localhost:8080/", "mocha, 10.0.0", map[string]string{}, map[string]string{})
 
 	if err != nil {
 		panic(err)
