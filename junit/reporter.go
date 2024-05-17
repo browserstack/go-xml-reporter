@@ -10,7 +10,7 @@ type Reporter interface {
 	AddTestRun(buildIdentifier string, name string, result string, errorTrace string, startTime string, duration string, parentSuite string, className string, filePath string, testProps map[string]interface{}, logs string, additionalProps map[string]string) (string, error)
 	UpdateBuildDetails(buildIdentifier string, buildTags []string, ciDetails string, frameworkDetails string, vcsDetails map[string]string, additionalProperties map[string]string) (string, error)
 	UpdateTestRunDetails(testIdentifier string, testProps map[string]interface{}, logs string, additionalProps map[string]string) (string, error)
-	SendReport(filePath string) (string, error)
+	SendReport(buildIdentifier string) (string, error)
 	StopBuild() (string, error)
 }
 
@@ -44,6 +44,17 @@ func (jr *JUnitReporter) resetData() {
 	jr.buildDetails.frameworkDetails = ""
 	jr.buildDetails.vcsDetails = make(map[string]string)
 	jr.buildDetails.additionalProperties = make(map[string]string)
+
+	// Resetting testSuites data
+	jr.testSuites = make(map[string]TestSuite)
+}
+
+func (jr *JUnitReporter) resetTestSuites() {
+
+	removeBuildDirErr := removeBuildAssets(jr.buildDetails.buildIdentifier)
+	if removeBuildDirErr != nil {
+		fmt.Println("xml build directory deletion failed")
+	}
 
 	// Resetting testSuites data
 	jr.testSuites = make(map[string]TestSuite)

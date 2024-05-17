@@ -65,6 +65,13 @@ func Example() {
 		panic(updateTestErr)
 	}
 
+	firstSplitResponse, firstSplitErr := reporter1.SendReport(buildIdentifier)
+	if firstSplitErr != nil {
+		panic(firstSplitErr)
+	}
+
+	fmt.Println("First split response message: ", firstSplitResponse)
+
 	// Adding more tests
 	reporter1.AddTestRun(buildIdentifier, "Test 1", "passed",
 		``, "2023-05-24T11:00:14", "3.133", "nil",
@@ -89,6 +96,14 @@ func Example() {
 		`/Users/testuser/work/samples/home.js`,
 		nil, "", nil,
 	)
+
+	secondSplitResponse, secondSplitErr := reporter1.SendReport(buildIdentifier)
+	if secondSplitErr != nil {
+		panic(secondSplitErr)
+	}
+
+	fmt.Println("Second split response message: ", secondSplitResponse)
+
 	reporter1.AddTestRun(buildIdentifier, "Test 1", "failed",
 		`Test 1 error stacktrace 1`, "2023-05-24T11:00:14", "3.133", "parentsuite 1",
 		`parentsuite 1 classname 1`,
