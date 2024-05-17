@@ -13,8 +13,7 @@ import (
 )
 
 const (
-	OBSERVABILITY_UPLOADER_ENDPOINT         = "https://upload-observability.browserstack.com/upload"
-	OBSERVABILITY_STAGING_UPLOADER_ENDPOINT = "http://upload-observability-devtestops.bsstag.com/upload"
+	OBSERVABILITY_UPLOADER_ENDPOINT = "https://upload-observability.browserstack.com/upload"
 )
 
 func O11yJunitUploader(buildDetails BuildDetailsParams) (string, error) {
@@ -70,7 +69,7 @@ func O11yJunitUploader(buildDetails BuildDetailsParams) (string, error) {
 	}
 
 	// Create a new POST request with the multipart body
-	req, err := http.NewRequest("POST", OBSERVABILITY_STAGING_UPLOADER_ENDPOINT, &requestBody)
+	req, err := http.NewRequest("POST", OBSERVABILITY_UPLOADER_ENDPOINT, &requestBody)
 	if err != nil {
 		return "", err
 	}
