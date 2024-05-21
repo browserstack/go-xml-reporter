@@ -1,6 +1,8 @@
-package junit
+package observabilityReporter
 
-func (jr *JUnitReporter) StopBuild() (string, error) {
+import "errors"
+
+func (jr *JUnitReporter) SendReport(buildIdentifier string) (string, error) {
 
 	if len(jr.testSuites) > 0 {
 		err := generateXMLFromTestSuites(jr.buildDetails.buildIdentifier, jr.testSuites)
@@ -16,13 +18,16 @@ func (jr *JUnitReporter) StopBuild() (string, error) {
 		}
 
 		// Delete the created file & reset the inmemory to empty(default) values
-		jr.resetData()
+		jr.resetTestSuites()
+
+		// Create a folder to store xml files and attachments
+		createBuildDirErr := createBuildDirectory(jr.buildDetails.buildIdentifier)
+		if createBuildDirErr != nil {
+			removeBuildAssets(jr.buildDetails.buildIdentifier)
+		}
 
 		return respMessage, nil
 	}
 
-	// Delete the created file & reset the inmemory to empty(default) values
-	jr.resetData()
-
-	return "Build stop is successful", nil
+	return "", errors.New("no tests are added to builder to process xml report")
 }

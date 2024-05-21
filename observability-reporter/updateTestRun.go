@@ -1,4 +1,4 @@
-package junit
+package observabilityReporter
 
 import (
 	"errors"

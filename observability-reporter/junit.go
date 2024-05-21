@@ -1,6 +1,6 @@
 // Contents of junit.go
 
-package junit
+package observabilityReporter
 
 import "encoding/xml"
 

@@ -1,4 +1,4 @@
-package junit
+package observabilityReporter
 
 func (jr *JUnitReporter) CreateBuild(username string, password string, buildName string, projectName string, buildIdentifier string, buildTags []string, ciDetails string, frameworkDetails string, vcsDetails map[string]string, additionalProperties map[string]string) (string, error) {
 
