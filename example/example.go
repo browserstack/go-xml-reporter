@@ -25,19 +25,19 @@ func Example() {
 	build1 := observabilityReporter.NewJUnitReporter()
 
 	// Adding build info
-	buildIdentifier, err := build1.CreateBuild(BSTACK_USERNAME, BSTACK_PASSWORD, "test-build", "Junit report uploads - Go XML Library", "", []string{"junit_upload", "regression"}, "http://localhost:8080/", "mocha, 10.0.0", map[string]string{}, map[string]string{})
+	_, err = build1.CreateBuild(BSTACK_USERNAME, BSTACK_PASSWORD, "test-build", "Junit report uploads - Go XML Library", "", []string{"junit_upload", "regression"}, "http://localhost:8080/", "mocha, 10.0.0", map[string]string{}, map[string]string{})
 	if err != nil {
 		panic(err)
 	}
 
 	// Updating build info
-	_, updateBuildErr := build1.UpdateBuildDetails(buildIdentifier, []string{"xml"}, "", "", map[string]string{}, map[string]string{})
+	_, updateBuildErr := build1.UpdateBuildDetails([]string{"xml"}, "", "", map[string]string{}, map[string]string{})
 	if updateBuildErr != nil {
 		panic(updateBuildErr)
 	}
 
 	// Adding a test
-	testIdentifier1, addTestErr1 := build1.AddTestRun(buildIdentifier, "Test 1", "failed",
+	testIdentifier1, addTestErr1 := build1.AddTestRun("Test 1", "failed",
 		`Test 1 error stacktrace 1`, "2023-05-24T11:00:14", "3.133", "nil",
 		`classname 1`,
 		`/Users/testuser/work/samples/signIn.e2e.js`,
@@ -65,7 +65,7 @@ func Example() {
 		panic(updateTestErr)
 	}
 
-	firstSplitResponse, firstSplitErr := build1.SendReport(buildIdentifier)
+	firstSplitResponse, firstSplitErr := build1.SendReport()
 	if firstSplitErr != nil {
 		panic(firstSplitErr)
 	}
@@ -73,12 +73,12 @@ func Example() {
 	fmt.Println("First split response message: ", firstSplitResponse)
 
 	// Adding more tests
-	build1.AddTestRun(buildIdentifier, "Test 1", "passed",
+	build1.AddTestRun("Test 1", "passed",
 		``, "2023-05-24T11:00:14", "3.133", "nil",
 		`classname 1`,
 		`/Users/testuser/work/samples/home.js`,
 		nil, "log info", nil)
-	build1.AddTestRun(buildIdentifier, "Test 2",
+	build1.AddTestRun("Test 2",
 		"failed", `first error stacktrace`,
 		"2023-05-24T11:00:17",
 		"2.343",
@@ -87,7 +87,7 @@ func Example() {
 		`/Users/testuser/work/samples/home.js`,
 		nil, "", nil,
 	)
-	build1.AddTestRun(buildIdentifier, `BStack - Login fucntionality &quot;after all&quot; hook for &quot;Login with invalid credentials - Dynamic Skip&quot;`,
+	build1.AddTestRun(`BStack - Login fucntionality &quot;after all&quot; hook for &quot;Login with invalid credentials - Dynamic Skip&quot;`,
 		"failed", `second error stacktrace`,
 		"2023-05-24T11:00:17",
 		"1.500",
@@ -97,19 +97,19 @@ func Example() {
 		nil, "", nil,
 	)
 
-	secondSplitResponse, secondSplitErr := build1.SendReport(buildIdentifier)
+	secondSplitResponse, secondSplitErr := build1.SendReport()
 	if secondSplitErr != nil {
 		panic(secondSplitErr)
 	}
 
 	fmt.Println("Second split response message: ", secondSplitResponse)
 
-	build1.AddTestRun(buildIdentifier, "Test 1", "failed",
+	build1.AddTestRun("Test 1", "failed",
 		`Test 1 error stacktrace 1`, "2023-05-24T11:00:14", "3.133", "parentsuite 1",
 		`parentsuite 1 classname 1`,
 		`/Users/testuser/work/samples/signIn.e2e.js`,
 		nil, "", nil)
-	build1.AddTestRun(buildIdentifier, "Test 2",
+	build1.AddTestRun("Test 2",
 		"failed", `first error stacktrace`,
 		"2023-05-24T11:00:17",
 		"2.343",
@@ -118,7 +118,7 @@ func Example() {
 		`/Users/testuser/work/samples/signIn.e2e.js`,
 		nil, "", nil,
 	)
-	build1.AddTestRun(buildIdentifier, `BStack - Login fucntionality &quot;after all&quot; hook for &quot;Login with invalid credentials - Dynamic Skip&quot;`,
+	build1.AddTestRun(`BStack - Login fucntionality &quot;after all&quot; hook for &quot;Login with invalid credentials - Dynamic Skip&quot;`,
 		"failed", `second error stacktrace`,
 		"2023-05-24T11:00:17",
 		"1.500",

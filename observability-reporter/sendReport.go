@@ -2,7 +2,12 @@ package observabilityReporter
 
 import "errors"
 
-func (jr *JUnitReporter) SendReport(buildIdentifier string) (string, error) {
+func (jr *JUnitReporter) SendReport() (string, error) {
+
+	// If build identifier is not matching with current object stopping execution
+	if !stringValidator(jr.buildDetails.buildIdentifier) {
+		return "", errors.New("build identifier is not exist")
+	}
 
 	if len(jr.testSuites) > 0 {
 		err := generateXMLFromTestSuites(jr.buildDetails.buildIdentifier, jr.testSuites)

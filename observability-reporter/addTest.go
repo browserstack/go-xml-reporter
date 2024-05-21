@@ -1,24 +1,21 @@
 package observabilityReporter
 
-import (
-	"errors"
-)
+import "errors"
 
-func (jr *JUnitReporter) AddTestRun(buildIdentifier string, name string, result string, errorTrace string, startTime string, duration string, parentSuite string, className string, filePath string, testProps map[string]interface{}, logs string, additionalProps map[string]string) (string, error) {
+func (jr *JUnitReporter) AddTestRun(name string, result string, errorTrace string, startTime string, duration string, parentSuite string, className string, filePath string, testProps map[string]interface{}, logs string, additionalProps map[string]string) (string, error) {
 
 	// If build identifier is not matching with current object stopping execution
-	if jr.buildDetails.buildIdentifier != buildIdentifier {
-		return "", errors.New("build identifier is not matching")
+	if !stringValidator(jr.buildDetails.buildIdentifier) {
+		return "", errors.New("build identifier is not exist")
 	}
 
 	testDetailsValidatorObject := map[string]string{
-		"buildIdentifier": buildIdentifier,
-		"name":            name,
-		"result":          result,
-		"startTime":       startTime,
-		"duration":        duration,
-		"className":       className,
-		"errorTrace":      errorTrace,
+		"name":       name,
+		"result":     result,
+		"startTime":  startTime,
+		"duration":   duration,
+		"className":  className,
+		"errorTrace": errorTrace,
 	}
 
 	// validation for required params

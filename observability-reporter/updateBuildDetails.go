@@ -2,16 +2,11 @@ package observabilityReporter
 
 import "errors"
 
-func (jr *JUnitReporter) UpdateBuildDetails(buildIdentifier string, buildTags []string, ciDetails string, frameworkDetails string, vcsDetails map[string]string, additionalProperties map[string]string) (string, error) {
-
-	// validation for required params
-	if !stringValidator(buildIdentifier) {
-		return "failed", errors.New("build identifier is required")
-	}
+func (jr *JUnitReporter) UpdateBuildDetails(buildTags []string, ciDetails string, frameworkDetails string, vcsDetails map[string]string, additionalProperties map[string]string) (string, error) {
 
 	// If build identifier is not matching with current object stopping execution
-	if jr.buildDetails.buildIdentifier != buildIdentifier {
-		return "failed", errors.New("build identifier is not matching")
+	if !stringValidator(jr.buildDetails.buildIdentifier) {
+		return "", errors.New("build identifier is not exist")
 	}
 
 	currentBuildDetails := jr.buildDetails

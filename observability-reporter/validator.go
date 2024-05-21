@@ -31,7 +31,6 @@ func BuildDetailsValidator(buildDetails BuildDetailsParams) error {
 }
 
 func AddTestValidator(testcaseDetails map[string]string) error {
-	buildIdentifier := testcaseDetails["buildIdentifier"]
 	name := testcaseDetails["name"]
 	result := testcaseDetails["result"]
 	startTime := testcaseDetails["startTime"]
@@ -39,10 +38,8 @@ func AddTestValidator(testcaseDetails map[string]string) error {
 	className := testcaseDetails["className"]
 	errorTrace := testcaseDetails["errorTrace"]
 
-	if !stringValidator(buildIdentifier) {
-		return errors.New("build identifier is required")
-	} else if !stringValidator(name) {
-		return errors.New("best name is required")
+	if !stringValidator(name) {
+		return errors.New("test name is required")
 	} else if !stringValidator(result) {
 		return errors.New("result is required")
 	} else if !stringValidator(startTime) {
