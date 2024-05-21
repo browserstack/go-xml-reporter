@@ -13,6 +13,10 @@ import (
 	"github.com/google/uuid"
 )
 
+const (
+	ASSET_FOLDER_NAME = "observability-build"
+)
+
 func generateUUID() string {
 	id := uuid.New()
 
@@ -27,7 +31,7 @@ func getCurrentBuildFolderPath(buildIdentifier string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	buildFolder := filepath.Join(wd, "build")
+	buildFolder := filepath.Join(wd, ASSET_FOLDER_NAME)
 	return filepath.Join(buildFolder, dirName), nil
 }
 
@@ -39,7 +43,7 @@ func getCurrentBuildZipFilePath(buildIdentifier string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	buildFolder := filepath.Join(wd, "build")
+	buildFolder := filepath.Join(wd, ASSET_FOLDER_NAME)
 	return filepath.Join(buildFolder, fileName), nil
 }
 
@@ -51,7 +55,7 @@ func createBuildDirectory(buildIdentifier string) error {
 		return err
 	}
 
-	buildFolder := filepath.Join(wd, "build")
+	buildFolder := filepath.Join(wd, ASSET_FOLDER_NAME)
 
 	if _, err := os.Stat(buildFolder); os.IsNotExist(err) {
 		// Create the folder
