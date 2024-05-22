@@ -22,13 +22,12 @@ func Example() {
 	BSTACK_PASSWORD := os.Getenv("BSTACK_PASSWORD")
 
 	// Create a new reporter object
-	build1 := observabilityReporter.NewJUnitReporter()
-
-	// Adding build info
-	_, err = build1.CreateBuild(BSTACK_USERNAME, BSTACK_PASSWORD, "test-build", "Junit report uploads - Go XML Library", "", []string{"junit_upload", "regression"}, "http://localhost:8080/", "mocha, 10.0.0", map[string]string{}, map[string]string{})
-	if err != nil {
-		panic(err)
+	build1, createBuildErr := observabilityReporter.CreateBuild(BSTACK_USERNAME, BSTACK_PASSWORD, "test-build", "Junit report uploads - Go XML Library", "", []string{"junit_upload", "regression"}, "http://localhost:8080/", "mocha, 10.0.0", map[string]string{}, map[string]string{})
+	if createBuildErr != nil {
+		panic(createBuildErr)
 	}
+
+	fmt.Println("***", build1.BuildIdentifier)
 
 	// Updating build info
 	_, updateBuildErr := build1.UpdateBuildDetails([]string{"xml"}, "", "", map[string]string{}, map[string]string{})
