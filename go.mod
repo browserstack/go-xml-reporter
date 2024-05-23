@@ -1,4 +1,4 @@
-module go-xml-reporter
+module github.com/browserstack/go-xml-reporter
 
 go 1.22.2
 

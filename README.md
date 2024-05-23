@@ -2,7 +2,32 @@
 This repository is being created to assist client(s) to generate and upload xml reports to existing JUnit XML Uploader feature available on Observability
 
 
-## Setup
+## Installation
+
+Run this command in your workspace terminal
+
+```shell
+go get github.com/browserstack/go-xml-reporter
+```
+
+After installation is successful, you can verify the installation in your go.mod file like this
+
+```go
+module your-module
+
+go 1.22.2
+
+require (
+    ...
+	github.com/browserstack/go-xml-reporter v1.0.0 // version might differ as per your installation
+)
+```
+
+## Usage
+
+For complete usage, refer this example file. [example.go](https://github.com/browserstack/go-xml-reporter/blob/main/example/example.go)
+
+## Contributing
 
 Before getting started, ensure that you have installed the following requirements:
 
@@ -30,7 +55,7 @@ Follow the steps below to set up the repository on your local machine:
 
     `go mod tidy`
 
-## How to Setup and Upload a Example report
+### How to Setup and Upload a Example report
 
 1.  Create a `.env` file 
 

@@ -2,9 +2,10 @@ package example
 
 import (
 	"fmt"
-	observabilityReporter "go-xml-reporter/observability-reporter"
 	"log"
 	"os"
+
+	observabilityReporter "github.com/browserstack/go-xml-reporter/observability-reporter"
 
 	"github.com/joho/godotenv"
 )
